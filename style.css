@@ -1,0 +1,26 @@
+#newsArticlesList {
+    list-style: none;
+}
+
+#newsArticlesList>li {
+    padding: 1rem;
+    display: flex;
+}
+
+#newsArticlesList>li>img {
+    /* width: 20%;
+    height: 30%; */
+    text-align: left;
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+#newsArticlesList>li>div {
+    margin: 0 1rem;
+}
+
+.mainHeading {
+    text-align: center;
+}
