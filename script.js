@@ -1,6 +1,9 @@
+/* import { apikey as key } from './variables.js'; //Import and Rename
+console.log(key); */
 const createNode = (element) => document.createElement(element); //Creation of element
 const append = (parent, el) => parent.appendChild(el); //Function to append child to parent
 const ul = document.getElementById('newsArticlesList'); // Unordered list refrence
+const apiKey = "33c57abfe85847ae9babd0be138a96b8";
 
 const channelUILists = document.querySelectorAll('.thumbnail'); //
 
@@ -12,12 +15,12 @@ class NewsChannel {
     // Class method to fetch the data and process it to DOM
     getArticles() {
         //String Literals -- Passing Source as variable in the params of url
-        const url = `https://newsapi.org/v1/articles?source=${this.source}&apiKey=33c57abfe85847ae9babd0be138a96b8`;
+        const url = `https://newsapi.org/v1/articles?source=${this.source}&apiKey=${apiKey}`;
+        console.log(url);
         fetch(url)
         .then(response => response.json()) //When Promise is resolved 
         .then(data => {
             let newsData = data.articles; //Storing Data using let newsData
-            console.log(newsData);
             return newsData.map(news => {
                 //Creation of list of Elements displaying repective Data by just using single let
                 let li = createNode('li'), 
@@ -26,13 +29,12 @@ class NewsChannel {
                 p = createNode('p'),
                 h4 = createNode('h4'),
                 strong = createNode('strong');
-                //let dateString = JSON.parse(newsData.publishedAt); //deserialize JSON published date
                 img.src = news.urlToImage;
                 h4.innerHTML = `AUTHOR: ${news.author}`;
                 strong.innerHTML = `Title: ${news.title} `;
                 p.innerHTML = `Description: ${news.description}`;
                 channelUILists.forEach(el => el.style.display = 'none'); //Hiding all the news/channel ul elemets
-                
+                //Condition Based ??// Separate Functions to display Data //
                 append(li, img);
                 append(li, div);
                 append(div, h4);
@@ -56,6 +58,9 @@ const associatedNews = new NewsChannel('associated-press');
 
 
 
+
+
+       
 
 
        
