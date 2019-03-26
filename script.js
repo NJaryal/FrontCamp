@@ -1,27 +1,30 @@
-/* import { apikey as key } from './variables.js'; //Import and Rename
+/* import { API_KEY as key } from './variables.js'; //Import and Rename
 console.log(key); */
-const createNode = (element) => document.createElement(element); //Creation of element
+const createNode = (element) => document.createElement(element); //Creation of an element
 const append = (parent, el) => parent.appendChild(el); //Function to append child to parent
-const ul = document.getElementById('newsArticlesList'); // Unordered list refrence
-const apiKey = "33c57abfe85847ae9babd0be138a96b8";
 
+const ul = document.getElementById('newsArticlesList'); // Unordered list refrence
+const API_KEY = "33c57abfe85847ae9babd0be138a96b8";
+const BASE_URL = "https://newsapi.org/v1/articles?source=";
 const channelUILists = document.querySelectorAll('.thumbnail'); //
+
+let spinner = document.querySelector(".spinner"); //Spinner to show when fetching api data
+spinner.style.display = 'none';
+
+const api = (source) => fetch(`${BASE_URL}`+source+`&apiKey=${API_KEY}`); //Fetch api function
 
 // Common reusable class to have common method to fetch news api data
 class NewsChannel {
-    constructor(source) { //Source will be different for the channels
+    constructor(source) { 
         this.source = source;
-    }
+    }    
     // Class method to fetch the data and process it to DOM
     getArticles() {
-        //String Literals -- Passing Source as variable in the params of url
-        const url = `https://newsapi.org/v1/articles?source=${this.source}&apiKey=${apiKey}`;
-        console.log(url);
-        fetch(url)
-        .then(response => response.json()) //When Promise is resolved 
-        .then(data => {
-            let newsData = data.articles; //Storing Data using let newsData
-            return newsData.map(news => {
+        spinner.style.display = 'block'; //Spinner
+
+        api(this.source).then(response => response.json())
+        .then(({articles}) => {            
+            return articles.map(news => {
                 //Creation of list of Elements displaying repective Data by just using single let
                 let li = createNode('li'), 
                 img = createNode('img'),
@@ -41,9 +44,16 @@ class NewsChannel {
                 append(div, strong);
                 append(div, p);        
                 append(ul , li);
+                spinner.style.display = 'none';
             });
         })
         .catch(error => JSON.stringify(error)); //If promise is rejected then catch
+
+
+        //const url = `https://newsapi.org/v1/articles?source=${this.source}&apiKey=${API_KEY}`;
+        
+        
+        
     }
 }
 
@@ -54,13 +64,3 @@ const usaNews = new NewsChannel('usa-today');
 const theNewYorkTimes = new NewsChannel('the-new-york-times');
 const cnnNews = new NewsChannel('cnn');
 const associatedNews = new NewsChannel('associated-press');
-
-
-
-
-
-
-       
-
-
-       
