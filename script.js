@@ -18,40 +18,40 @@ const authorNames = () => {
     let authors = new Proxy({}, validator);
 }
 
-const api = (source) => fetch(`${BASE_URL}`+source+`&apiKey=${API_KEY}`); //Fetch api function
+const api = (source) => fetch(`${BASE_URL}${source}&apiKey=${API_KEY}`); //Fetch api function
+//Render News Function for creation of DOM
+const renderNewsItem = (news) => {    
+    let li = createNode('li'), 
+    img = createNode('img'),
+    div = createNode('div'),
+    p = createNode('p'),
+    h4 = createNode('h4'),
+    strong = createNode('strong');
+    img.src = news.urlToImage;
+    h4.innerHTML = `AUTHOR: ${news.author}`;
+    strong.innerHTML = `Title: ${news.title} `;
+    p.innerHTML = `Description: ${news.description}`;
+    append(li, img);
+    append(li, div);
+    append(div, h4);
+    append(div, strong);
+    append(div, p);        
+    append(ul , li); 
+    spinner.style.display = 'none';    
+}
 // Common reusable class to have common method to fetch news api data
 class NewsChannel {
     constructor(source) { 
         this.source = source;
     }    
-    // Class method to fetch the data and process it to DOM
+    // Class method to fetch the data
     getArticles() {
         channelUILists.forEach(el => el.style.display = 'none'); //Hiding all the news/channel ul elemets                
         spinner.style.display = 'block'; //Spinner
         ul.innerHTML = "";
         api(this.source).then(response => response.json())  //Invoking api function i.e. promise
         .then(({articles}) => {         // Object destructuring   
-            return articles.map(news => {
-                //Creation of list of Elements displaying repective Data by just using single let
-                let li = createNode('li'), 
-                img = createNode('img'),
-                div = createNode('div'),
-                p = createNode('p'),
-                h4 = createNode('h4'),
-                strong = createNode('strong');
-                img.src = news.urlToImage;
-                h4.innerHTML = `AUTHOR: ${news.author}`;
-                strong.innerHTML = `Title: ${news.title} `;
-                p.innerHTML = `Description: ${news.description}`;
-
-                append(li, img);
-                append(li, div);
-                append(div, h4);
-                append(div, strong);
-                append(div, p);        
-                append(ul , li);
-                spinner.style.display = 'none';    
-             });
+            return articles.map(news => renderNewsItem(news));
         })
         .catch(error => JSON.stringify(error)); //If promise is rejected then catch        
     }
