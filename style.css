@@ -1,3 +1,8 @@
+html,
+body {
+    font-family: museo-slab;
+}
+
 header>h1 {
     background: #cacaca;
     padding: 2rem;
@@ -35,6 +40,7 @@ header>h1 {
     opacity: 1;
     position: relative;
     height: 50vh;
+    display: none;
 }
 
 @-webkit-keyframes spinner {
@@ -84,6 +90,14 @@ header>h1 {
     transform: translate3d(-50%, -50%, 0);
     width: 40px;
     will-change: transform;
+}
+
+.navbar-default .navbar-nav>li>a {
+    cursor: pointer;
+}
+
+.navbar-default .navbar-nav>.active>a {
+    font-weight: bold;
 }
 
 @media (max-width: 40em) {
