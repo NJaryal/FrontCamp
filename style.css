@@ -12,6 +12,8 @@ header>h1 {
 .thumbnail {
     text-align: center;
     margin: 10px 10px 20px 15px;
+    width: 30%;
+    float: left;
 }
 
 #newsArticlesList {
@@ -101,6 +103,9 @@ header>h1 {
 }
 
 @media (max-width: 40em) {
+    .thumbnail {
+        width: 100%;
+    }
     #newsArticlesList>li {
         display: block;
     }
