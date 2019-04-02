@@ -89,11 +89,26 @@ class App {
     return document.createElement(element)
   }
 
-  get(source) {
-    this.spinner.enableSpinner()
-  
-    return fetch(`${BASE_URL}${source}&apiKey=${API_KEY}`)
-        .then(response => response.json())
+  initialContent() {
+    this.sources.forEach((item)=>{
+      this.main.innerHTML +=
+        `<div class="thumbnail">
+          <div class="caption">
+          <h3>${item.label}</h3>
+          <p><a href="#" class="btn btn-primary" data-load-channel="${item.inst}" role="button">${item.source}</a></p>
+          </div>
+        </div>`
+    }); 
+  }  
+
+  async get(source) {
+    this.spinner.enableSpinner()    
+      try {
+        const response = await fetch(`${BASE_URL}${source}&apiKey=${API_KEY}`);
+        return await response.json();
+      } catch (error) {
+        console.log(error);
+      }    
     }   
     
   handleMainClick({ target }) {
@@ -112,17 +127,8 @@ class App {
     }, {})
     
     this.main.addEventListener('click', this.handleMainClick.bind(this))    
-    this.sources.forEach((item)=>{
-      this.main.innerHTML +=
-        `<div class="thumbnail">
-          <div class="caption">
-          <h3>${item.label}</h3>
-          <p><a href="#" class="btn btn-primary" data-load-channel="${item.inst}" role="button">${item.source}</a></p>
-          </div>
-        </div>`
-    });     
+    this.initialContent();
   }
-
 }
 
 class NewsChannel {
