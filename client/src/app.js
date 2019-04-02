@@ -1,3 +1,4 @@
+import "./styles/style.css";
 const API_KEY = "33c57abfe85847ae9babd0be138a96b8";
 const BASE_URL = "https://newsapi.org/v1/articles?source=";
 //Proxy usage to get all the Author names
