@@ -1,16 +1,5 @@
-/* import { API_KEY as key } from './variables.js'; //Import and Rename
-console.log(key); */
-let spinner = document.querySelector(".spinner"); //Spinner to show when fetching api data
-const createNode = (element) => document.createElement(element); //Creation of an element
-const append = (parent, el) => parent.appendChild(el); //Function to append child to parent
-const ul = document.getElementById('newsArticlesList'); // Unordered list refrence
 const API_KEY = "33c57abfe85847ae9babd0be138a96b8";
 const BASE_URL = "https://newsapi.org/v1/articles?source=";
-const channelUILists = document.querySelectorAll('.thumbnail');
-const newsSection = document.querySelector('.newsSection');
-/* import { API_KEY as key } from './variables.js'; //Import and Rename
-console.log(key); */
-
 //Proxy usage to get all the Author names
 const authorNames = () => {
     let validator = {
