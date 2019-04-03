@@ -1,13 +1,12 @@
 import "./styles/style.css";
-const API_KEY = "33c57abfe85847ae9babd0be138a96b8";
-const BASE_URL = "https://newsapi.org/v1/articles?source=";
+import { API_KEY, BASE_URL, sources} from './variable';
 //Proxy usage to get all the Author names
 const authorNames = () => {
     let validator = {
         get(target, key) {
             return key in target ? taget[key] : "No Author";
         }
-    }
+      }
     let authors = new Proxy({}, validator);
 }
 
@@ -19,41 +18,6 @@ const settings = {
   BASE_URL,
   API_KEY
 }
-
-const sources = [
-  {
-    source: 'CNBC',
-    label: 'CNBC News',
-    inst: 'cnbc'
-  },
-  {
-    source: 'Time',
-    label: 'Time News',
-    inst: 'time'
-  },
-  {
-    source: 'usa-today',
-    label: 'Usa Today News',
-    inst: 'usaToday'
-  },
-  {
-    source: 'the-new-york-times',
-    label: 'The New York Times News',
-    inst: 'newYourkTimes'
-  },
-  {
-    source: 'cnn',
-    label: 'CNN News',
-    inst: 'cnn'
-  },
-
-  {
-    source: 'associated-press',
-    label: 'Associated Press News',
-    inst: 'associatedPress'
-  }
-]
-
 class Spinner {
   constructor(selector) {
     this.spinner = document.querySelector(selector)
