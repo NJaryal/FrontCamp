@@ -33,3 +33,13 @@ export const sources = [
       inst: 'associatedPress'
     }
   ]
+
+  export const settings = {
+    spinnerSelector: '.spinner',
+    ulSelector: '#newsArticlesList',
+    gridSection: '.newsSection',
+    navSection: '.primary_navigation',
+    channelUIListsSelector: '.thumbnail',
+    BASE_URL,
+    API_KEY
+  }

@@ -2,24 +2,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: [
-            'babel-polyfill',
-            './client/src/app.js'
-        ],
+    entry: './client/src/js/app.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'main.js',
         path: path.resolve(__dirname, 'dist')         
     },    
     module: {
         rules: [
-            {   test: '/\.m?js$/',
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
+            {   test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"                    
             },
             {
                 test: /\.css$/,
@@ -34,9 +26,10 @@ module.exports = {
             }
         ]
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: './client/src/index.html',
-        hash: true
+    plugins: [
+        new HtmlWebpackPlugin({
+        template: './client/src/index.html'
         //chunks: ['file1','file2']
-    })]
+        })
+    ]
 }
