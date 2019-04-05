@@ -30,6 +30,6 @@ module.exports = {
         new HtmlWebpackPlugin({
         template: './client/src/index.html'
         //chunks: ['file1','file2']
-        })
-    ]
+    })
+]
 }

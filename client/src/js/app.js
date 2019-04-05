@@ -4,6 +4,7 @@ import "../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings} from './variable';
 import {Spinner} from './spinner';
 import {NewsChannel} from './fetchChannel';
+import "../js/bootstrapMenu";
 import authorNames from './proxy';
 import "../js/generators";
 
@@ -71,19 +72,5 @@ class App {
     this.initialContent();
   }
 }
-
 const app = new App(sources, settings)
 app.init()
-
-//Bootstrap Active Class + Hamburger menu functionality
-$(document).ready(function () {
-    $(".nav a").on("click", function(){
-        $(".nav").find(".active").removeClass("active");
-        $(this).parent().addClass("active");
-     });
-     $(document).on('click','.navbar-collapse.in',function(e) {
-        if( $(e.target).is('a') ) {
-            $(this).collapse('hide');
-        }
-    });
-});
