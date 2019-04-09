@@ -8,7 +8,6 @@ import "../js/bootstrapMenu";
 import authorNames from './proxy';
 import "../js/generators";
 import logo from "../assets/news.png";
-import webpack from '../assets/webpack.jpg';
 
 class App {
   constructor (sources, settings) {
