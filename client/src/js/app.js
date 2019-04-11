@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import "whatwg-fetch";
 import "../styles/style.css";
-import { API_KEY, BASE_URL, sources, settings} from './variable';
+import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './variable';
 import {NewsChannel} from './fetchChannel';
 import {Spinner} from './spinner';
 import "../js/bootstrapMenu";
@@ -40,7 +40,7 @@ class App {
           <h3>${item.label}</h3>
           <p><a href="#" class="btn btn-primary" data-load-channel="${item.inst}" role="button">${item.source}</a></p>
           </div>
-        </div>`        
+        </div>`   
     }); 
   }  
 
@@ -75,3 +75,15 @@ class App {
 }
 const app = new App(sources, settings)
 app.init()
+
+const headLinesContent = document.getElementById('headLines');
+const dynamicImport = () => {
+  /*Dynamic Import - lazy Loading Example*/
+  import("./lazy-loading.js")
+  .then(module =>{
+    console.log(module);
+    module.default();
+  })
+  .catch((e) => console.error(e))
+}
+headLinesContent.addEventListener("click", dynamicImport)

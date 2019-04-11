@@ -1,4 +1,3 @@
-
 export class NewsChannel {
     constructor(source, app) { 
         this.source = source;
