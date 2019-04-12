@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FirstWebpackPlugin = require("./plugins/FirstWebpackPlugin");
 //const json = require('./client/src/data.json');
 
 
@@ -39,6 +40,7 @@ module.exports = {
     plugins: [        
         new HtmlWebpackPlugin({
         template: './client/src/index.html'
-        })
+        }),
+        new FirstWebpackPlugin()
     ]
 }
