@@ -1,19 +1,12 @@
 import { headLines_KEY} from './variable';
-
-const headLinesNews = () => {
-    console.log("Hello");
+const headlinesNewsData = async headLinesNews => {
+    try {
+        const resp = await fetch(headLines_KEY);
+        return await resp.json();  
+        console.log("Api Response");  
+        
+    } catch (error) {
+        console.log(error);
+    } 
 }
-   
-    /* async latest() {
-        try {
-            const resp = await fetch(headLines_KEY);
-            return await resp.json();  
-            console.log("Api Response");  
-            
-        } catch (error) {
-            console.log(error);
-        } 
-    } */
-       
-
-export default headLinesNews;
+export default headlinesNewsData;

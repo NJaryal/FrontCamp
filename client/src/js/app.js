@@ -5,6 +5,7 @@ import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './variable';
 import {NewsChannel} from './fetchChannel';
 import {Spinner} from './spinner';
 import "../js/bootstrapMenu";
+import {Headlines} from './headlines';
 import authorNames from './proxy';
 import "../js/generators";
 import logo from "../assets/news.png";
@@ -17,7 +18,7 @@ class App {
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
     this.ul = document.querySelector(settings.ulSelector)
-    this.channelUILists = document.querySelector(settings.channelUIListsSelector)
+    this.channelUILists = document.querySelector(settings.channelUIListsSelector)    
     this.channels = {}
   }
 
@@ -75,15 +76,5 @@ class App {
 }
 const app = new App(sources, settings)
 app.init()
-
-const headLinesContent = document.getElementById('headLines');
-const dynamicImport = () => {
-  /*Dynamic Import - lazy Loading Example*/
-  import("./lazy-loading.js")
-  .then(module =>{
-    console.log(module);
-    module.default();
-  })
-  .catch((e) => console.error(e))
-}
-headLinesContent.addEventListener("click", dynamicImport)
+const newsHeadings = new Headlines(settings)
+newsHeadings.dynamicImport()
