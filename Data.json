@@ -1,12 +1,12 @@
 {
     "employees": [{
             "company": "EPAM",
-            "ID": "547662",
+            "ID": 547662,
             "country": "India"
         },
         {
             "company": "EPAM",
-            "ID": "547662",
+            "ID": 547663,
             "country": "India"
         }
     ]
