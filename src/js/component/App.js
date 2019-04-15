@@ -1,14 +1,14 @@
 import "@babel/polyfill";
 import "whatwg-fetch";
-import "../styles/style.css";
-import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './variable';
-import {NewsChannel} from './fetchChannel';
-import {Spinner} from './spinner';
-import "../js/bootstrapMenu";
-import {Headlines} from './headlines';
-import authorNames from './proxy';
-import "../js/generators";
-import logo from "../assets/news.png";
+import "../../styles/style.css";
+import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './Variable';
+import {NewsChannel} from './NewsChannel';
+import {Spinner} from './Spinner';
+import "./BootstrapMenu";
+import {Headlines} from './Headlines';
+import authorNames from './Proxy';
+import "./Generators";
+import logo from "../../assets/news.png";
 
 class App {
   constructor (sources, settings) {

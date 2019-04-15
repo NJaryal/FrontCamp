@@ -4,7 +4,7 @@ export class Headlines {
       this.showheadlinesBtn = document.querySelector(settings.newsHeadlines)    
     }
     async dynamicImport() {
-      const module = await import("./lazy-loading.js");
+      const module = await import("./LazyLoading.js");
       module.default()
         .then(({ articles }) => {
           articles.map(item => {
@@ -12,4 +12,4 @@ export class Headlines {
           });
         });
     }
-  }
+}
