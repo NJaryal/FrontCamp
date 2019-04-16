@@ -1,0 +1,17 @@
+{
+    "employees": [{
+            "company": "EPAM India",
+            "ID": 547662,
+            "country": "India"
+        },
+        {
+            "company": "EPAM Belarus",
+            "ID": 547663,
+            "country": "India"
+        },
+        {
+            "company": "X Company",
+            "country": "USA"
+        }
+    ]
+}

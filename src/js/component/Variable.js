@@ -40,6 +40,10 @@ export const sources = [
     gridSection: '.newsSection',
     navSection: '.primary_navigation',
     channelUIListsSelector: '.thumbnail',
+    newsHeadlines: '#headLines',
+    newsModal : '.headlinesContent',
     BASE_URL,
     API_KEY
   }
+
+export const headLines_KEY = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
