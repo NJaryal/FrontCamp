@@ -1,7 +1,7 @@
 export class Headlines {
     constructor(settings){
       this.modalHeadlines = document.querySelector(settings.newsModal)
-      this.showheadlinesBtn = document.querySelector(settings.newsHeadlines)    
+      this.showheadlinesBtn = document.querySelector(settings.newsHeadlines)
     }
     async dynamicImport() {
       const module = await import("./LazyLoading.js");

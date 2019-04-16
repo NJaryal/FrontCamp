@@ -15,9 +15,7 @@ module.exports = {
         rules: [
             {   test: /\.js$/,
                 exclude: /node_modules/,
-                use: [
-                    'custom-loader','babel-loader'
-                ]                       
+                use: 'babel-loader'                     
             },
             {
                 test: /\.css$/,
@@ -37,6 +35,10 @@ module.exports = {
                     loader: 'url-loader'
                     }
                 ]
+            },
+            {
+                test: /\.json$/,
+                loader: 'custom-loader'
             }
         ]
     },

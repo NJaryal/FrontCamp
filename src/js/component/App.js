@@ -9,12 +9,14 @@ import {Headlines} from './Headlines';
 import authorNames from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
+import "../../../Data.json"
 
 class App {
   constructor (sources, settings) {
     this.sources = sources
     this.settings = settings
     this.spinner = new Spinner(settings.spinnerSelector)
+    this.newsHeadings = new Headlines(settings)
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
     this.ul = document.querySelector(settings.ulSelector)
@@ -72,9 +74,8 @@ class App {
     this.nav.addEventListener('click', this.handleMainClick.bind(this)) 
     this.main.addEventListener('click', this.handleMainClick.bind(this))      
     this.initialContent();
+    this.newsHeadings.dynamicImport();
   }
 }
 const app = new App(sources, settings)
 app.init()
-const newsHeadings = new Headlines(settings)
-newsHeadings.dynamicImport()
