@@ -1,4 +1,4 @@
-export class Api {
+class Api {
     constructor(path) {
       this.path = path
     }
@@ -8,7 +8,6 @@ export class Api {
            method,
            body: JSON.stringify(body)
        }
-     return fetch(this.path + url, param)
    }
      
    get(url) {
@@ -16,11 +15,12 @@ export class Api {
    }  
      
    post(url, body) {
-    // code here
+    return this.request(url, 'POST', body)
    }   
      
    put(url, body) {
-     // code here
+    return this.request(url, 'PUT', body)
    }
 }
 
+export const api = new Api("");

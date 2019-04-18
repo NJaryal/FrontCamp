@@ -3,12 +3,13 @@ import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './Variable';
 import {NewsChannel} from './NewsChannel';
-import {Api} from './Api'
+import {api} from './Api'
 import {Spinner} from './Spinner';
 import "./BootstrapMenu";
 import {Headlines} from './Headlines';
 import authorNames from './Proxy';
 import "./Generators";
+import {someAsyncOperation} from './Errors'
 import logo from "../../assets/news.png";
 import "../../../Data.json"
 
@@ -23,7 +24,6 @@ class App {
     this.ul = document.querySelector(settings.ulSelector)
     this.channelUILists = document.querySelector(settings.channelUIListsSelector)    
     this.channels = {}
-    this.api = new Api("")
   }
 
   append(parent, el) {
@@ -52,7 +52,8 @@ class App {
   async get(source) {
     this.spinner.enableSpinner()    
       try {
-        const response = await this.api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);
+        const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);
+        alert(response);
         return await response.json();
       } catch (error) {
         console.log(error);
