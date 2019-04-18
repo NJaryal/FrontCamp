@@ -2,14 +2,14 @@ import "@babel/polyfill";
 import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './Variable';
-import {NewsChannel} from './NewsChannel';
 import {api} from './Api'
+import {NewsChannel} from './NewsChannel';
 import {Spinner} from './Spinner';
 import "./BootstrapMenu";
 import {Headlines} from './Headlines';
+import {CustomError} from './Errors';
 import authorNames from './Proxy';
 import "./Generators";
-import {someAsyncOperation} from './Errors'
 import logo from "../../assets/news.png";
 import "../../../Data.json"
 
@@ -24,6 +24,7 @@ class App {
     this.ul = document.querySelector(settings.ulSelector)
     this.channelUILists = document.querySelector(settings.channelUIListsSelector)    
     this.channels = {}
+
   }
 
   append(parent, el) {
@@ -52,11 +53,12 @@ class App {
   async get(source) {
     this.spinner.enableSpinner()    
       try {
-        const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);
-        alert(response);
+        const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);        
         return await response.json();
-      } catch (error) {
-        console.log(error);
+        throw new CustomError('GET API', 'Message');
+      } catch (e) {
+        console.log("Name  " + e.name);
+        console.log("Msg  " + e.message);
       }    
   }   
       

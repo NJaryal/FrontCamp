@@ -8,6 +8,7 @@ class Api {
            method,
            body: JSON.stringify(body)
        }
+       return fetch(this.path + url, param)
    }
      
    get(url) {
@@ -22,5 +23,4 @@ class Api {
     return this.request(url, 'PUT', body)
    }
 }
-
-export const api = new Api("");
+export const api = new Api('');
