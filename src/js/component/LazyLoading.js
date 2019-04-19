@@ -4,8 +4,10 @@ const headlinesNewsData = async () => {
     try {
         const resp = await api.get(headLines_KEY);
         return await resp.json();  
-    } catch (error) {
-        console.log(error);
+        throw new CustomError('Lazy Loading Message');
+    } catch (e) {
+        alert("Name  " + e.name);
+        alert("Msg  " + e.message);
     } 
 }
 export default headlinesNewsData;
