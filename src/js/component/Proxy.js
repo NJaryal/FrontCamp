@@ -1,4 +1,13 @@
 import {api} from './Api'
+const proxyHandler = {
+  get: function(target, name){
+        return target[name]
+    }
+}
+const proxiedApi = new Proxy(api, proxyHandler)
+proxiedApi.request()
+proxiedApi.get()
+
 //Proxy usage to get all the Author names
 export const authorNames = () => {
     let validator = {
@@ -8,16 +17,3 @@ export const authorNames = () => {
       }
     let authors = new Proxy({}, validator);
 }
-
-export class Proxy {
-    constructor() {
-    }
-
-    getLogger(url) {
-        return api.get(url)
-        console.log(response.status)
-        console.log(response.statusText)
-        console.log(response.url)
-    }
-}
-export const proxy = new Proxy()

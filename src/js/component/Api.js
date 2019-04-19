@@ -8,6 +8,7 @@ class Api {
            method,
            body: JSON.stringify(body)
        }
+       console.log(`Api call with ${method} method of url= ${url}`)
        return fetch(this.path + url, param)
    }
      

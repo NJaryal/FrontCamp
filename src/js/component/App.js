@@ -7,8 +7,9 @@ import {NewsChannel} from './NewsChannel';
 import {Spinner} from './Spinner';
 import "./BootstrapMenu";
 import {Headlines} from './Headlines';
+import {api} from './Api'
 import {CustomError} from './Errors';
-import authorNames from './Proxy';
+import {authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
 import "../../../Data.json"
@@ -52,12 +53,12 @@ class App {
   async get(source) {
     this.spinner.enableSpinner()    
       try {
-        const response = await proxy.getLogger(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
+        const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
         return await response.json();  
-        throw new CustomError('Message');
+        throw new NewError('News Api');
       } catch (e) {
-        alert("Name  " + e.name); //Bootstrap's Modal - Heading
-        alert("Msg  " + e.message); //Bootstrap's Modal - Message
+        alert("Name " + e.name); //Bootstrap's Modal - Heading
+        alert("News Api Error " + e.message); //Bootstrap's Modal - Message
       }    
   }   
       

@@ -7,7 +7,7 @@ const headlinesNewsData = async () => {
         throw new CustomError('Lazy Loading Message');
     } catch (e) {
         alert("Name  " + e.name);
-        alert("Msg  " + e.message);
+        alert("Lazy Loading Message  " + e.message);
     } 
 }
 export default headlinesNewsData;

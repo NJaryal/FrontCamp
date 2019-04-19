@@ -1,5 +1,5 @@
 
-export class CustomError extends Error {
+export class NewError extends Error {
   constructor(...params) {
     super(...params);
 
@@ -7,7 +7,5 @@ export class CustomError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, CustomError);
     }
-
-    this.name = 'CustomError';
   }
 }
