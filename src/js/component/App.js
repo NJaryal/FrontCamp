@@ -8,7 +8,8 @@ import {Spinner} from './Spinner';
 import "./BootstrapMenu";
 import {Headlines} from './Headlines';
 import {api} from './Api'
-import {CustomError} from './Errors';
+import {view} from '../../Views/View'
+import {Errors} from './Errors';
 import {authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
@@ -37,16 +38,8 @@ class App {
 
   initialContent() {
     this.sources.forEach((item)=>{
-      this.nav.innerHTML +=
-        `<li><a data-load-channel="${item.inst}">${item.source}</a></li>`
-
-      this.main.innerHTML +=
-        `<div class="thumbnail">
-          <div class="caption">
-          <h3>${item.label}</h3>
-          <p><a href="#" class="btn btn-primary" data-load-channel="${item.inst}" role="button">${item.source}</a></p>
-          </div>
-        </div>`   
+      this.nav.innerHTML += view.navHTML(item)
+      this.main.innerHTML += view.mainHTML(item)
     }); 
   }  
 
@@ -55,7 +48,7 @@ class App {
       try {
         const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
         return await response.json();  
-        throw new NewError('News Api');
+        throw Errors.getInstance()
       } catch (e) {
         alert("Name " + e.name); //Bootstrap's Modal - Heading
         alert("News Api Error " + e.message); //Bootstrap's Modal - Message

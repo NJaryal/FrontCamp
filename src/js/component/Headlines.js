@@ -1,3 +1,4 @@
+import {view} from '../../Views/View'
 export class Headlines {
     constructor(settings){
       this.modalHeadlines = document.querySelector(settings.newsModal)
@@ -8,7 +9,7 @@ export class Headlines {
       module.default()
         .then(({ articles }) => {
           articles.map(item => {
-            this.modalHeadlines.innerHTML += `<a href="#" class="list-group-item"><strong>${item.title} </strong></li>`;
+            this.modalHeadlines.innerHTML += view.headLinesHTML(item);
           });
         });
     }
