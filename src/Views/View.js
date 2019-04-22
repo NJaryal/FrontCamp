@@ -1,8 +1,5 @@
 class Views {
-  constructor(item, name, message) {
-    this.item = item;
-    this.name = name;
-    this.message = message;
+  constructor() {
   }
 
   navHTML(item){
@@ -27,13 +24,13 @@ class Views {
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h2 class="modal-title" id="ModalLabel">Message: ${name}</h2>
+                          <h2 class="modal-title" id="ModalLabel">Error Name: ${name}</h2>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body errorsModalContent">
-                Message: ${message}
+                  Error Message: ${message}
                 </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

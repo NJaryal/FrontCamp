@@ -1,9 +1,8 @@
 import { headLines_KEY} from './Variable';
 import {api} from './Api'
-const headlinesNewsData = async () => {
+const headlinesNewsData = () => {
     try {
-        const resp = await api.get(headLines_KEY);
-        return await resp.json();  
+        return api.get(headLines_KEY);
         throw Errors.getInstance()
     } catch (e) {
         alert("Name  " + e.name);

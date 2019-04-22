@@ -44,14 +44,13 @@ class App {
     }); 
   }  
 
-  async get(source) {
+  get(source) {
     this.spinner.enableSpinner()    
       try {
-        const response = await api.et(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
-        return await response.json();  
+        return api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);
         throw Errors.getInstance()
       } catch (e) {
-        this.errorsModal.innerHTML = view.errorsModal(e.name, e.message) //Bootsstrap Popup Error
+        this.errorsModal.innerHTML = view.errorsModal(e.name, e.message) //Popup Error
         $("#errorsModal").modal('show');
       }    
   }   
@@ -59,7 +58,6 @@ class App {
   handleMainClick({ target }) {
       if(target.tagName.toLowerCase() === 'a' && target.dataset.loadChannel) {
         const channelName = target.dataset.loadChannel;
-        console.log(channelName);
         this.channels[channelName].fetchChannel()
       }
       this.main.style.display = 'none';
