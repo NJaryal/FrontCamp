@@ -4,9 +4,7 @@ const proxyHandler = {
         return target[name]
     }
 }
-const proxiedApi = new Proxy(api, proxyHandler)
-proxiedApi.request()
-proxiedApi.get()
+export const proxiedApi = new Proxy(api, proxyHandler)
 
 //Proxy usage to get all the Author names
 export const authorNames = () => {

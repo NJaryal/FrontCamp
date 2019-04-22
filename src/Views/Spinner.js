@@ -1,6 +1,7 @@
+import { settings} from '../js/component/Variable';
 export class Spinner {
-    constructor(selector) {
-      this.spinner = document.querySelector(selector)
+    constructor(settings) {
+      this.spinner = document.querySelector(settings.spinnerSelector)
       this.spinner.style.display = 'none';
     }
   
@@ -10,6 +11,7 @@ export class Spinner {
   
     disableSpinner() {
       this.spinner.style.display = 'none';
-    }
-  
+    }  
   }
+
+  export const spinner = new Spinner(settings)

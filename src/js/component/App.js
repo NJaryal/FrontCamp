@@ -4,12 +4,12 @@ import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings, headLines_KEY} from './Variable';
 import {proxy} from './Proxy'
 import {NewsChannel} from './NewsChannel';
-import {Spinner} from './Spinner';
+import {spinner} from '../../Views/Spinner';
 import "./BootstrapMenu";
 import {Headlines} from './Headlines';
 import {api} from './Api'
 import {view} from '../../Views/View'
-import {authorNames} from './Proxy';
+import {proxiedApi, authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
 import "../../../Data.json"
@@ -18,7 +18,6 @@ class App {
   constructor (sources, settings) {
     this.sources = sources
     this.settings = settings
-    this.spinner = new Spinner(settings.spinnerSelector)
     this.newsHeadings = new Headlines(settings)
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
@@ -44,7 +43,7 @@ class App {
   }  
 
   get(source) {
-    this.spinner.enableSpinner()    
+    spinner.enableSpinner()   
     return api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
   }   
       

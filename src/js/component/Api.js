@@ -1,6 +1,7 @@
 import {Errors} from './Errors';
 import {view} from '../../Views/View'
 import { settings} from './Variable';
+import {proxiedApi} from './Proxy';
 class Api {
     constructor(path, settings) {
       this.path = path 
@@ -13,8 +14,7 @@ class Api {
           method,
           body: JSON.stringify(body)
       }
-      try {
-        console.log(`Api call with ${method} method of url= ${url}`)
+      try {     
         return await fetch(this.path + url, param).then(res => res.json())
         throw Errors.getInstance()
       } catch (e) {

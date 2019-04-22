@@ -39,7 +39,6 @@ class Views {
                 </div>
             </div>`
   }
-
 } 
 export const view = new Views()
  
