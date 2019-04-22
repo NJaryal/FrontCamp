@@ -9,7 +9,6 @@ import "./BootstrapMenu";
 import {Headlines} from './Headlines';
 import {api} from './Api'
 import {view} from '../../Views/View'
-import {Errors} from './Errors';
 import {authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
@@ -46,13 +45,7 @@ class App {
 
   get(source) {
     this.spinner.enableSpinner()    
-      try {
-        return api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);
-        throw Errors.getInstance()
-      } catch (e) {
-        this.errorsModal.innerHTML = view.errorsModal(e.name, e.message) //Popup Error
-        $("#errorsModal").modal('show');
-      }    
+    return api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
   }   
       
   handleMainClick({ target }) {
