@@ -42,6 +42,7 @@ export const sources = [
     channelUIListsSelector: '.thumbnail',
     newsHeadlines: '#headLines',
     newsModal : '.headlinesContent',
+    errorsModal : '.errors',
     BASE_URL,
     API_KEY
   }

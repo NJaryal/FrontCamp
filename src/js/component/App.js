@@ -24,7 +24,8 @@ class App {
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
     this.ul = document.querySelector(settings.ulSelector)
-    this.channelUILists = document.querySelector(settings.channelUIListsSelector)    
+    this.channelUILists = document.querySelector(settings.channelUIListsSelector)
+    this.errorsModal = document.querySelector(settings.errorsModal)  
     this.channels = {}
   }
 
@@ -46,12 +47,12 @@ class App {
   async get(source) {
     this.spinner.enableSpinner()    
       try {
-        const response = await api.get(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
+        const response = await api.et(`${BASE_URL}${source}&apiKey=${API_KEY}`);  
         return await response.json();  
         throw Errors.getInstance()
       } catch (e) {
-        alert("Name " + e.name); //Bootstrap's Modal - Heading
-        alert("News Api Error " + e.message); //Bootstrap's Modal - Message
+        this.errorsModal.innerHTML = view.errorsModal(e.name, e.message) //Bootsstrap Popup Error
+        $("#errorsModal").modal('show');
       }    
   }   
       
