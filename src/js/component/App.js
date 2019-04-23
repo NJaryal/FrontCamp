@@ -3,10 +3,10 @@ import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings} from './Variable';
 import {NewsChannel} from './NewsChannel';
-import {view} from '../../Views/View'
 import {spinner} from '../../Views/Spinner';
 import "./BootstrapMenu";
-import {Headlines} from './Headlines';
+import {headline} from './Headlines';
+import {view} from '../../Views/View'
 import {proxiedApi, authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
@@ -48,8 +48,9 @@ class App {
       return acc
     }, {})
     view.nav.addEventListener('click', this.handleMainClick.bind(this)) 
-    view.main.addEventListener('click', this.handleMainClick.bind(this))
+    view.main.addEventListener('click', this.handleMainClick.bind(this))   
   }
 }
 const app = new App(sources, settings)
 app.init()
+

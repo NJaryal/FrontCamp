@@ -40,7 +40,7 @@ export const sources = [
     gridSection: '.newsSection',
     navSection: '.primary_navigation',
     channelUIListsSelector: '.thumbnail',
-    newsHeadlines: '#headLines',
+    newsHeadlines: '.headLines',
     newsModal : '.headlinesContent',
     errorsModal : '.errors',
     BASE_URL,

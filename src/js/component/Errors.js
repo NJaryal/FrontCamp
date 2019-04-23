@@ -1,5 +1,5 @@
 import {view} from '../../Views/View';
-export class Errors {
+class Errors {
   construtor(){
     if(!Errors.instance) {
       Errors.instance = new Error()
@@ -10,7 +10,8 @@ export class Errors {
     return Errors.instance
   }
 
-  errorHandler() {
-    view.errorsModal(e.name, e.message)
+  errorHandler(name, message) {
+    view.errorsMsgModal(name, message)
   }
 }
+export const error = new Errors()

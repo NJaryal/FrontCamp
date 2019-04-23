@@ -1,15 +1,13 @@
 import { headLines_KEY} from './Variable';
-import {Api} from './Api';
 import {proxiedApi} from './Proxy';
+import{error} from './Errors'
 const headlinesNewsData = () => {
-    /* let api = new Api('') */
     try {
         return proxiedApi.get(headLines_KEY);
-        throw Errors.getInstance()
+        throw error.getInstance()
     } catch (e) {
-        alert("Name  " + e.name);
-        alert("Lazy Loading Message  " + e.message);
+        error.errorHandler(e.name,e.message )
+        alert(e.name)
     } 
 }
-headlinesNewsData()
 export default headlinesNewsData;
