@@ -18,7 +18,6 @@ class Headlines {
       this.newsHeadlines.addEventListener('click', this.dynamicImport())
     }
 }
-
 export const headline = new Headlines(settings)
 headline.init()
 

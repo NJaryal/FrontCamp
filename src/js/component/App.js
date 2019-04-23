@@ -31,7 +31,7 @@ class App {
 
   get(source) {
     spinner.enableSpinner()   
-    return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
+    return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KE}`)
   }
 
   handleMainClick({ target }) {

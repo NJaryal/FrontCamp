@@ -1,6 +1,4 @@
 import {Errors} from './Errors';
-import {view} from '../../Views/View'
-import{error} from './Errors'
 export class Api {
     constructor(BASE_URL) {
       this.BASE_URL = BASE_URL
@@ -15,9 +13,10 @@ export class Api {
         return await fetch(this.BASE_URL + url , param).then(res => {
           console.log(`Status: ${res.status} Url:${res.url}`)
          return res.json()})
-        throw error.getInstance()
+        throw Errors.getInstance()
       } catch (e) {
-        error.errorHandler(e.name, e.message)
+        const myModule = import(/* webpackPreload: true */ "./Errors.js")
+        return await myModule.displayAlerts(e.message)
       }
    }
      
