@@ -1,4 +1,5 @@
-import {api} from './Api'
+import {Api} from './Api'
+const api = new Api('')
 const proxyHandler = {
   get: function(target, name){
         return target[name]

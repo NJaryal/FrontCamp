@@ -1,26 +1,47 @@
+import {API_KEY,BASE_URL,sources,settings,headLines_KEY} from "../js/component/Variable";
+import "../js/component/BootstrapMenu";
 class Views {
-  constructor() {
+  constructor(sources, settings) {
+    this.sources = sources;
+    this.settings = settings;
+    this.errorsModal = document.querySelector(settings.errorsModal);
+    this.main = document.querySelector(settings.gridSection);
+    this.nav = document.querySelector(settings.navSection);
+    this.errorsModal = document.querySelector(settings.errorsModal);
   }
 
-  navHTML(item){
-    return `<li><a data-load-channel="${item.inst}">${item.source}</a></li>`
+  navHTML(item) {
+    return (this.nav.innerHTML = `<li><a data-load-channel="${item.inst}">${
+      item.source
+    }</a></li>`);
   }
 
   mainHTML(item) {
-    return `<div class="thumbnail">
+    return (this.main.innerHTML = `<div class="thumbnail">
       <div class="caption">
       <h3>${item.label}</h3>
-      <p><a href="#" class="btn btn-primary" data-load-channel="${item.inst}" role="button">${item.source}</a></p>
+      <p><a href="#" class="btn btn-primary" data-load-channel="${
+        item.inst
+      }" role="button">${item.source}</a></p>
       </div>
-    </div>`
+    </div>`);
+  }
+
+  initialContent() {
+    this.sources.forEach(item => {
+      this.nav.innerHTML += this.navHTML(item);
+      this.main.innerHTML += this.mainHTML(item);
+    });
   }
 
   headLinesHTML(item) {
-    return `<a href="#" class="list-group-item"><strong>${item.title} </strong></a>`
+    return `<a href="#" class="list-group-item"><strong>${
+      item.title
+    } </strong></a>`;
   }
 
   errorsModal(name, message) {
-    return `<div class="modal fade" id="errorsModal" tabindex="-1" role="dialog" aria-labelledby="errorsModal" aria-hidden="true">
+    return this.errorsModal.innerHTML = `<div class="modal fade" id="errorsModal" tabindex="-1" role="dialog" aria-labelledby="errorsModal" aria-hidden="true">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -37,13 +58,8 @@ class Views {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`;
   }
-} 
-export const view = new Views()
- 
- 
- 
- 
-
-         
+}
+export const view = new Views(sources, settings);
+view.initialContent();

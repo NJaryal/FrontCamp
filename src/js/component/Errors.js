@@ -1,3 +1,4 @@
+import {view} from '../../Views/View';
 export class Errors {
   construtor(){
     if(!Errors.instance) {
@@ -7,5 +8,9 @@ export class Errors {
 
   getInstance() {
     return Errors.instance
+  }
+
+  errorHandler() {
+    view.errorsModal(e.name, e.message)
   }
 }

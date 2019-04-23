@@ -1,6 +1,7 @@
 import { headLines_KEY} from './Variable';
-import {api} from './Api'
+import {Api} from './Api';
 const headlinesNewsData = () => {
+    let api = new Api('')
     try {
         return api.get(headLines_KEY);
         throw Errors.getInstance()
@@ -9,4 +10,5 @@ const headlinesNewsData = () => {
         alert("Lazy Loading Message  " + e.message);
     } 
 }
+headlinesNewsData()
 export default headlinesNewsData;
