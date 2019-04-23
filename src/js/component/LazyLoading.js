@@ -1,9 +1,10 @@
 import { headLines_KEY} from './Variable';
 import {Api} from './Api';
+import {proxiedApi} from './Proxy';
 const headlinesNewsData = () => {
-    let api = new Api('')
+    /* let api = new Api('') */
     try {
-        return api.get(headLines_KEY);
+        return proxiedApi.get(headLines_KEY);
         throw Errors.getInstance()
     } catch (e) {
         alert("Name  " + e.name);
