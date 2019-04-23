@@ -4,7 +4,6 @@ import{Errors} from './Errors'
 const headlinesNewsData = () => {
     try {
         return proxiedApi.get(headLines_KEY);
-        throw Errors.getInstance()
     } catch (e) {
         Errors.errorHandler(e.name,e.message )
         alert(e.name)

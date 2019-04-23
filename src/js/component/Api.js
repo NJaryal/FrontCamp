@@ -13,7 +13,6 @@ export class Api {
         return await fetch(this.BASE_URL + url , param).then(res => {
           console.log(`Status: ${res.status} Url:${res.url}`)
          return res.json()})
-        throw Errors.getInstance()
       } catch (e) {
         const myModule = import(/* webpackPreload: true */ "./Errors.js")
         return await myModule.displayAlerts(e.message)
