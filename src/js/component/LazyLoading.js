@@ -1,4 +1,4 @@
-import { headLines_KEY} from './Variable';
+import { headLines_KEY} from '../constant/constant';
 import {proxiedApi} from './Proxy';
 import{Errors} from './Errors'
 const headlinesNewsData = () => {

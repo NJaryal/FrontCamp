@@ -1,5 +1,5 @@
 import {view} from '../../Views/View'
-import { settings} from './Variable'
+import { settings} from '../constant/constant'
 class Headlines {
     constructor(settings){
       this.modalHeadlines = document.querySelector(settings.newsModal)

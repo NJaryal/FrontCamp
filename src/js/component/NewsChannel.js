@@ -1,4 +1,4 @@
-import {spinner} from '../../Views/Spinner';
+import {view} from '../../Views/View';
 export class NewsChannel {
     constructor(source, app) { 
         this.source = source;
@@ -8,7 +8,7 @@ export class NewsChannel {
     // Class method to fetch the data and process it to DOM    
     setArticles(articles) {
       this.articles = articles  
-      spinner.disableSpinner()
+      view.disableSpinner()
       return this.articles
     }
   

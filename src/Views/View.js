@@ -1,13 +1,15 @@
-import {API_KEY,BASE_URL,sources,settings,headLines_KEY} from "../js/component/Variable";
+import {sources,settings} from "../../src/js/constant/constant";
 import "../js/component/BootstrapMenu";
 class Views {
   constructor(sources, settings) {
     this.sources = sources;
     this.settings = settings;
-    this.errorsModal = document.querySelector(settings.errorsModal);
-    this.main = document.querySelector(settings.gridSection);
-    this.nav = document.querySelector(settings.navSection);
-    this.errorsModal = document.querySelector(settings.errorsModal);
+    this.errorsModal = document.querySelector(settings.errorsModal)
+    this.main = document.querySelector(settings.gridSection)
+    this.nav = document.querySelector(settings.navSection)
+    this.errorsModal = document.querySelector(settings.errorsModal)
+    this.spinner = document.querySelector(settings.spinnerSelector)
+    this.spinner.style.display = 'none';
   }
 
   navHTML(item) {
@@ -34,6 +36,14 @@ class Views {
     });
   }
 
+  enableSpinner() {
+    this.spinner.style.display = 'block';
+  }
+
+  disableSpinner() {
+    this.spinner.style.display = 'none';
+  }
+  
   headLinesHTML(item) {
     return `<a href="#" class="list-group-item"><strong>${
       item.title
