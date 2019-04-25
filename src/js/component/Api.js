@@ -1,6 +1,5 @@
 export class Api {
-    constructor(BASE_URL) {
-      this.BASE_URL = BASE_URL
+    constructor() {      
     }
        
    async request(url, method, body) {
@@ -9,7 +8,7 @@ export class Api {
           body: JSON.stringify(body)
       }
       try {
-        return await fetch(this.BASE_URL + url , param).then(res => res.json())
+        return await fetch(url, param).then(res => res.json())
       } catch (e) {
         const myModule = import(/* webpackPreload: true */ "./Errors.js")
         return await myModule.displayAlerts(e.message)

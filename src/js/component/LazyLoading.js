@@ -6,7 +6,6 @@ const headlinesNewsData = () => {
         return proxiedApi.get(headLines_KEY);
     } catch (e) {
         Errors.errorHandler(e.name,e.message )
-        alert(e.name)
     } 
 }
 export default headlinesNewsData;
