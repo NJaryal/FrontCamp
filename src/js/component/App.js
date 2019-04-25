@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import "whatwg-fetch";
 import "../../styles/style.css";
-import { API_KEY, BASE_URL, sources, settings} from '../constant/constant';
+import { BASE_URL,API_KEY, sources, settings} from '../constant/constant';
 import {NewsChannel} from './NewsChannel';
 import "./BootstrapMenu";
 import {headline} from './Headlines';
@@ -30,7 +30,7 @@ class App {
 
   get(source) {
     view.enableSpinner()   
-    return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
+    return proxiedApi.get(source)
   }
 
   handleMainClick({ target }) {

@@ -3,7 +3,7 @@ import {proxiedApi} from './Proxy';
 import{Errors} from './Errors'
 const headlinesNewsData = () => {
     try {
-        return proxiedApi.get(headLines_KEY);
+        return proxiedApi.get("CNN");
     } catch (e) {
         Errors.errorHandler(e.name,e.message )
         alert(e.name)
