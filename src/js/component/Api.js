@@ -1,4 +1,3 @@
-import { BASE_URL,API_KEY} from '../constant/constant';
 export class Api {
     constructor() {
     }
@@ -12,7 +11,7 @@ export class Api {
       return await fetch(url, param).then(res => res.json())
     } catch (e) {
       const myModule = import(/* webpackPreload: true */ "./Errors.js")
-      return await myModule.displayAlerts(e.message)
+      return await myModule.errorHandler(e.name,e.message)
     }
   }
 
