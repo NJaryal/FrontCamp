@@ -1,10 +1,11 @@
-import { headLines_KEY} from './Variable';
-const headlinesNewsData = async headLinesNews => {
+import { headLines_KEY} from '../constant/constant';
+import {proxiedApi} from './Proxy';
+import{errorInstance} from './Errors'
+const headlinesNewsData = () => {
     try {
-        const resp = await fetch(headLines_KEY);
-        return await resp.json();  
-    } catch (error) {
-        console.log(error);
+        return proxiedApi.get(headLines_KEY);
+    } catch (e) {
+        errorInstance.errorHandler(e.name,e.message )
     } 
 }
 export default headlinesNewsData;
