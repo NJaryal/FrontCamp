@@ -1,5 +1,5 @@
 import {view} from '../../Views/View';
-export class NewsChannel {
+export class Model {
     constructor(source, app) { 
         this.source = source;
         this.articles = []
@@ -13,6 +13,7 @@ export class NewsChannel {
     }
   
     fetchChannel() {
+      alert(this.app);
       return this.app
         .get(this.source)
         .then(({ articles }) => {

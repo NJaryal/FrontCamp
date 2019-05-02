@@ -2,7 +2,7 @@ import "@babel/polyfill";
 import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings} from '../constant/constant';
-import {NewsChannel} from './NewsChannel';
+import {Model} from './Model';
 import "./BootstrapMenu";
 import {headline} from './Headlines';
 import {view} from '../../Views/View'
@@ -11,7 +11,7 @@ import "./Generators";
 import logo from "../../assets/news.png";
 import "../../../Data.json"
 
-class App {
+class Controller {
   constructor (sources, settings) {
     this.sources = sources
     this.settings = settings   
@@ -43,13 +43,13 @@ class App {
 
   init() {  
     this.channels = this.sources.reduce((acc, { source, inst }) => {
-      acc[inst] = new NewsChannel(source, this);
+      acc[inst] = new Model(source, this);
       return acc
     }, {})
     view.nav.addEventListener('click', this.handleMainClick.bind(this)) 
     view.main.addEventListener('click', this.handleMainClick.bind(this))   
   }
 }
-const app = new App(sources, settings)
-app.init()
+const myController = new Controller(sources, settings)
+myController.init()
 
