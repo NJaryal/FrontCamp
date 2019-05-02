@@ -5,19 +5,21 @@ import { API_KEY, BASE_URL, sources, settings} from '../constant/constant';
 import {Model} from './Model';
 import "./BootstrapMenu";
 import {headline} from './Headlines';
-import {view} from '../../Views/View'
+import {myView} from '../../Views/View'
 import {proxiedApi, authorNames} from './Proxy';
 import "./Generators";
 import logo from "../../assets/news.png";
 import "../../../Data.json"
 
 class Controller {
-  constructor (sources, settings) {
+  constructor (sources, settings, view, model) {
     this.sources = sources
     this.settings = settings   
     this.ul = document.querySelector(settings.ulSelector)
     this.channelUILists = document.querySelector(settings.channelUIListsSelector)
     this.channels = {}
+    this.view = view
+    this.model = model
   }
 
   append(parent, el) {
@@ -29,7 +31,7 @@ class Controller {
   }    
 
   get(source) {
-    view.enableSpinner()   
+    myView.enableSpinner()   
     return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
   }
 
@@ -38,7 +40,7 @@ class Controller {
       const channelName = target.dataset.loadChannel;
       this.channels[channelName].fetchChannel()
     }
-    view.main.style.display = 'none';
+    myView.main.style.display = 'none';
   }
 
   init() {  
@@ -46,8 +48,8 @@ class Controller {
       acc[inst] = new Model(source, this);
       return acc
     }, {})
-    view.nav.addEventListener('click', this.handleMainClick.bind(this)) 
-    view.main.addEventListener('click', this.handleMainClick.bind(this))   
+    myView.nav.addEventListener('click', this.handleMainClick.bind(this)) 
+    myView.main.addEventListener('click', this.handleMainClick.bind(this))   
   }
 }
 const myController = new Controller(sources, settings)

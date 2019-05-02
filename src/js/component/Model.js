@@ -1,4 +1,4 @@
-import {view} from '../../Views/View';
+import {myView} from '../../Views/View';
 export class Model {
     constructor(source, app) { 
         this.source = source;
@@ -8,12 +8,11 @@ export class Model {
     // Class method to fetch the data and process it to DOM    
     setArticles(articles) {
       this.articles = articles  
-      view.disableSpinner()
+      myView.disableSpinner()
       return this.articles
     }
   
     fetchChannel() {
-      alert(this.app);
       return this.app
         .get(this.source)
         .then(({ articles }) => {

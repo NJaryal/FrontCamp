@@ -1,4 +1,4 @@
-import {view} from '../../Views/View'
+import {myView} from '../../Views/View'
 import { settings} from '../constant/constant'
 class Headlines {
     constructor(settings){
@@ -9,7 +9,7 @@ class Headlines {
       const myModule = await import("./LazyLoading.js")
       const { articles } = await myModule.default()
       articles.map(item => {
-        this.modalHeadlines.innerHTML += view.headLinesHTML(item);
+        this.modalHeadlines.innerHTML += myView.headLinesHTML(item);
       });
       this.newsHeadlines.dataset.target = "#headLinesModal";
     }

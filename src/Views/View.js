@@ -1,6 +1,6 @@
-import {sources,settings} from "../../src/js/constant/constant";
+import {sources,settings} from "../js/constant/constant";
 import "../js/component/BootstrapMenu";
-class Views {
+class View {
   constructor(sources, settings) {
     this.sources = sources;
     this.settings = settings;
@@ -71,5 +71,5 @@ class Views {
             </div>`;
   }
 }
-export const view = new Views(sources, settings);
-view.initialContent();
+export const myView = new View(sources, settings);
+myView.initialContent();
