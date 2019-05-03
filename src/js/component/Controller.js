@@ -2,7 +2,8 @@ import "@babel/polyfill";
 import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings} from '../constant/constant';
-import {Model} from './Model';
+import {NewsChannel} from './NewsChannel';
+import {myModel} from './Models'
 import "./BootstrapMenu";
 import {headline} from './Headlines';
 import {myView} from '../../Views/View'
@@ -12,12 +13,7 @@ import logo from "../../assets/news.png";
 import "../../../Data.json"
 
 class Controller {
-  constructor (sources, settings, view, model) {
-    this.sources = sources
-    this.settings = settings   
-    this.ul = document.querySelector(settings.ulSelector)
-    this.channelUILists = document.querySelector(settings.channelUIListsSelector)
-    this.channels = {}
+  constructor (view, model) {
     this.view = view
     this.model = model
   }
@@ -31,27 +27,24 @@ class Controller {
   }    
 
   get(source) {
-    myView.enableSpinner()   
+    this.view.enableSpinner()   
     return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
   }
 
   handleMainClick({ target }) {
     if(target.tagName.toLowerCase() === 'a' && target.dataset.loadChannel) {
       const channelName = target.dataset.loadChannel;
-      this.channels[channelName].fetchChannel()
+      this.model.channels[channelName].fetchChannel()
     }
-    myView.main.style.display = 'none';
+    this.view.main.style.display = 'none';
   }
 
-  init() {  
-    this.channels = this.sources.reduce((acc, { source, inst }) => {
-      acc[inst] = new Model(source, this);
-      return acc
-    }, {})
-    myView.nav.addEventListener('click', this.handleMainClick.bind(this)) 
-    myView.main.addEventListener('click', this.handleMainClick.bind(this))   
+  init() {    
+    this.model.getChannels()
+    this.view.nav.addEventListener('click', this.handleMainClick.bind(this)) 
+    this.view.main.addEventListener('click', this.handleMainClick.bind(this))   
   }
 }
-const myController = new Controller(sources, settings)
+const myController = new Controller(myView, myModel)
 myController.init()
 

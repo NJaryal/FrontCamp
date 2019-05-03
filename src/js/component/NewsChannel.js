@@ -1,5 +1,5 @@
 import {myView} from '../../Views/View';
-export class Model {
+export class NewsChannel {
     constructor(source, app) { 
         this.source = source;
         this.articles = []

@@ -7,6 +7,8 @@ class View {
     this.errorsModal = document.querySelector(settings.errorsModal)
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
+    this.ul = document.querySelector(settings.ulSelector)
+    this.channelUILists = document.querySelector(settings.channelUIListsSelector)
     this.errorsModal = document.querySelector(settings.errorsModal)
     this.spinner = document.querySelector(settings.spinnerSelector)
     this.spinner.style.display = 'none';
