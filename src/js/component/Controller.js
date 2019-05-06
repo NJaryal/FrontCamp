@@ -3,7 +3,7 @@ import "whatwg-fetch";
 import "../../styles/style.css";
 import { API_KEY, BASE_URL, sources, settings} from '../constant/constant';
 import {NewsChannel} from './NewsChannel';
-import {myModel} from './Models'
+import {Model} from '../../Models/Model'
 import "./BootstrapMenu";
 import {headline} from './Headlines';
 import {myView} from '../../Views/View'
@@ -31,6 +31,27 @@ class Controller {
     return proxiedApi.get(`${BASE_URL}${source}&apiKey=${API_KEY}`)
   }
 
+  renderItem(news) {
+    let li = this.view.createNode('li'), 
+        img = this.view.createNode('img'),
+        div = this.view.createNode('div'),
+        p = this.view.createNode('p'),
+        h4 = this.view.createNode('h4'),
+        strong = this.view.createNode('strong'); 
+
+      img.src = news.urlToImage;
+      h4.innerHTML = `AUTHOR: ${news.author}`;
+      strong.innerHTML = `Title: ${news.title} `;
+      p.innerHTML = `Description: ${news.description}`;
+          
+      this.view.append(li, img);
+      this.view.append(li, div);
+      this.view.append(div, h4);
+      this.view.append(div, strong);
+      this.view.append(div, p);        
+      this.view.append(this.view.ul , li);       
+    }   
+
   handleMainClick({ target }) {
     if(target.tagName.toLowerCase() === 'a' && target.dataset.loadChannel) {
       const channelName = target.dataset.loadChannel;
@@ -45,6 +66,7 @@ class Controller {
     this.view.main.addEventListener('click', this.handleMainClick.bind(this))   
   }
 }
-const myController = new Controller(myView, myModel)
+const myModel = new Model(sources)
+export const myController = new Controller(myView, myModel)
 myController.init()
 
