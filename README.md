@@ -1,8 +1,9 @@
 # FrontCamp - Mongo
 
-MongoDB. Home Task 1 Note: if you already have MongoDB installed, please, check that you are running the latest version – 3.6, because it’s necessary to complete some of the tasks 1. Install MongoDB Follow installation guidelines for your OS at https://docs.mongodb.com/manual/installation/#mongodb-communityedition 
+MongoDB. Home Task 1 Note: if you already have MongoDB installed, please, check that you are running the latest version – 3.6, because it’s necessary to complete some of the tasks 
+1. Install MongoDB Follow installation guidelines for your OS at https://docs.mongodb.com/manual/installation/#mongodb-communityedition 
 
-1. Saved restaurants.json on your PC from downloaded grow portal.
+2. Saved restaurants.json on your PC from downloaded grow portal.
    > Installed on desktop
 
 3. Use mongoimport (it’s in MongoDB installation folder) to import the collection to the database  Assuming you run local MongoDB on > 
@@ -84,19 +85,227 @@ switched to db frontcamp
     
     
 
-4. Indexing Restaurants Collection Note: you may use MongoDB Compass for this task if you want to 
-
-
-Create the following indexes: 
+4. Indexing Restaurants Collection Note: you may use MongoDB Compass for this task if you want to
+#### Create the following indexes: 
 1. Create an index which will be used by this query and provide proof (from explain() or Compass UI) that the index is indeed used by the winning plan: 
+ ```shell
   db.restaurants.find({ name: "Glorious Food" }) 
+  ```
+  > db.restaurants.createIndex({"name": 1 })
+      ```shell
+      {
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+      }
+      ```
   
-2. Drop index from task 4.1 3. Create an index to make this query covered and provide proof (from explain() or Compass UI) that it is indeed covered: 
-db.restaurants.find({ restaurant_id: "41098650" }, { _id: 0, borough: 1 })
+  > db.restaurants.find({ name: "Glorious Food" }).explain()
+     ```shell
+     {
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "frontcamp.restaurants",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "name" : {
+                                "$eq" : "Glorious Food"
+                        }
+                },
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "name" : 1
+                                },
+                                "indexName" : "name_1",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "name" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "name" : [
+                                                "[\"Glorious Food\", \"Glorious Food\"]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "serverInfo" : {
+                "host" : "EPINHYDW0295",
+                "port" : 27017,
+                "version" : "4.0.9",
+                "gitVersion" : "fc525e2d9b0e4bceff5c2201457e564362909765"
+        },
+        "ok" : 1
+   }
+    ```
+  
+  
+   2. Drop index from task 4.1 
+   > Option2 :: db.restaurants.dropIndex({"name": 1 })
+   > Option2 (indexName is the name of the index) :: db.restaurants.dropIndex("name_1")
 
+    ```shell
+    { "nIndexesWas" : 2, "ok" : 1 }   
+    ```
+  
+   3. Create an index to make this query covered and provide proof (from explain() or Compass UI) that it is indeed covered: 
+   ```shell   
+   > db.restaurants.createIndex({"restaurant_id": 41098650})
+   {
+           "createdCollectionAutomatically" : false,
+           "numIndexesBefore" : 1,
+           "numIndexesAfter" : 2,
+           "ok" : 1
+   }
+   ```
+    
+    ```shell
+    > db.restaurants.find({ restaurant_id: "41098650" }, { _id: 0, borough: 1 }).explain("executionStats")
+    {
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "frontcamp.restaurants",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "restaurant_id" : {
+                                "$eq" : "41098650"
+                        }
+                },
+                "winningPlan" : {
+                        "stage" : "PROJECTION",
+                        "transformBy" : {
+                                "_id" : 0,
+                                "borough" : 1
+                        },
+                        "inputStage" : {
+                                "stage" : "FETCH",
+                                "inputStage" : {
+                                        "stage" : "IXSCAN",
+                                        "keyPattern" : {
+                                                "restaurant_id" : 41098650
+                                        },
+                                        "indexName" : "restaurant_id_41098650",
+                                        "isMultiKey" : false,
+                                        "multiKeyPaths" : {
+                                                "restaurant_id" : [ ]
+                                        },
+                                        "isUnique" : false,
+                                        "isSparse" : false,
+                                        "isPartial" : false,
+                                        "indexVersion" : 2,
+                                        "direction" : "forward",
+                                        "indexBounds" : {
+                                                "restaurant_id" : [
+                                                        "[\"41098650\", \"41098650\"]"
+                                                ]
+                                        }
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 1,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "PROJECTION",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "invalidates" : 0,
+                        "transformBy" : {
+                                "_id" : 0,
+                                "borough" : 1
+                        },
+                        "inputStage" : {
+                                "stage" : "FETCH",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 0,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "invalidates" : 0,
+                                "docsExamined" : 1,
+                                "alreadyHasObj" : 0,
+                                "inputStage" : {
+                                        "stage" : "IXSCAN",
+                                        "nReturned" : 1,
+                                        "executionTimeMillisEstimate" : 0,
+                                        "works" : 2,
+                                        "advanced" : 1,
+                                        "needTime" : 0,
+                                        "needYield" : 0,
+                                        "saveState" : 0,
+                                        "restoreState" : 0,
+                                        "isEOF" : 1,
+                                        "invalidates" : 0,
+                                        "keyPattern" : {
+                                                "restaurant_id" : 41098650
+                                        },
+                                        "indexName" : "restaurant_id_41098650",
+                                        "isMultiKey" : false,
+                                        "multiKeyPaths" : {
+                                                "restaurant_id" : [ ]
+                                        },
+                                        "isUnique" : false,
+                                        "isSparse" : false,
+                                        "isPartial" : false,
+                                        "indexVersion" : 2,
+                                        "direction" : "forward",
+                                        "indexBounds" : {
+                                                "restaurant_id" : [
+                                                        "[\"41098650\", \"41098650\"]"
+                                                ]
+                                        },
+                                        "keysExamined" : 1,
+                                        "seeks" : 1,
+                                        "dupsTested" : 0,
+                                        "dupsDropped" : 0,
+                                        "seenInvalidated" : 0
+                                }
+                        }
+                }
+        },
+        "serverInfo" : {
+                "host" : "EPINHYDW0295",
+                "port" : 27017,
+                "version" : "4.0.9",
+                "gitVersion" : "fc525e2d9b0e4bceff5c2201457e564362909765"
+        },
+        "ok" : 1
+    }
+    ```
 
 4. Create a partial index on cuisine field which will be used only when filtering on borough equal to “Staten Island”: 
-db.restaurants.find({ borough: "Staten Island", cuisine: "American" }) – uses index 
-db.restaurants.find({ borough: "Staten Island", name: "Bagel Land" }) – does not use index 
-db.restaurants.find({ borough: "Queens", cuisine: "Pizza" }) – does not use index 5. Create an index to make query from task 3.4 covered and provide proof (from explain() or Compass UI) that it is indeed covered
+> db.restaurants.find({ borough: "Staten Island", cuisine: "American" }) – uses index 
+> db.restaurants.find({ borough: "Staten Island", name: "Bagel Land" }) – does not use index 
+> db.restaurants.find({ borough: "Queens", cuisine: "Pizza" }) – does not use index 5. Create an index to make query from task 3.4 > covered and provide proof (from explain() or Compass UI) that it is indeed covered
 
+   ```shell
+   ```
+    
+    ```shell
+    ```
