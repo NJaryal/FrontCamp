@@ -110,18 +110,16 @@ switched to db frontcamp
 4. Indexing Restaurants Collection Note: you may use MongoDB Compass for this task if you want to
 #### Create the following indexes: 
 1. Create an index which will be used by this query and provide proof (from explain() or Compass UI) that the index is indeed used by the winning plan: 
- ```shell
-  db.restaurants.find({ name: "Glorious Food" }) 
-  ```
-  > db.restaurants.createIndex({"name": 1 })
-      ```shell
-      {
-        "createdCollectionAutomatically" : false,
-        "numIndexesBefore" : 1,
-        "numIndexesAfter" : 2,
-        "ok" : 1
-      }
-      ```
+   ```shell
+    > db.restaurants.createIndex({"name": 1 })
+
+   {
+     "createdCollectionAutomatically" : false,
+     "numIndexesBefore" : 1,
+     "numIndexesAfter" : 2,
+     "ok" : 1
+   }
+   ```
   
   > db.restaurants.find({ name: "Glorious Food" }).explain()
      ```shell
