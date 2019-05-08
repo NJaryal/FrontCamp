@@ -45,6 +45,35 @@ class View {
   disableSpinner() {
     this.spinner.style.display = 'none';
   }
+
+  append(parent, el) {
+    return parent.appendChild(el)
+  }
+
+  createNode(element) {
+    return document.createElement(element)
+  }  
+
+  renderItem(news) {
+    let li = this.createNode('li'), 
+        img = this.createNode('img'),
+        div = this.createNode('div'),
+        p = this.createNode('p'),
+        h4 = this.createNode('h4'),
+        strong = this.createNode('strong'); 
+
+      img.src = news.urlToImage;
+      h4.innerHTML = `AUTHOR: ${news.author}`;
+      strong.innerHTML = `Title: ${news.title} `;
+      p.innerHTML = `Description: ${news.description}`;
+          
+      this.append(li, img);
+      this.append(li, div);
+      this.append(div, h4);
+      this.append(div, strong);
+      this.append(div, p);        
+      this.append(this.view.ul , li);       
+    } 
   
   headLinesHTML(item) {
     return `<a href="#" class="list-group-item"><strong>${
@@ -74,4 +103,4 @@ class View {
   }
 }
 export const myView = new View(sources, settings);
-myView.initialContent();
+

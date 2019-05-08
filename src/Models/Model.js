@@ -6,7 +6,7 @@ export class Model{
     }
     getChannels() {        
         this.channels = this.sources.reduce((acc, { source, inst }) => {
-            acc[inst] = new NewsChannel(source, this.something);
+            acc[inst] = new NewsChannel(source);
             return acc
           }, {})
     }

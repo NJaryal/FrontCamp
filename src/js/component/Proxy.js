@@ -1,13 +1,15 @@
 import {Api} from './Api'
-const api = new Api()
+import { API_KEY, BASE_URL, headLines_baseUrl} from '../constant/constant';
+const apiNews = new Api(BASE_URL,API_KEY)
+const apiHeadlines = new Api(headLines_baseUrl,API_KEY)
 const proxyHandler = {
     get: function(target, name){
         console.log(name)
         return target[name]
     }
 }
-export const proxiedApi = new Proxy(api, proxyHandler)
-
+export const proxiedNewsApi = new Proxy(apiNews, proxyHandler)
+export const proxiedHeadLinesApi = new Proxy(apiHeadlines, proxyHandler)
 //Proxy usage to get all the Author names
 export const authorNames = () => {
     let validator = {

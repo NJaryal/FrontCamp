@@ -47,4 +47,4 @@ export const sources = [
     API_KEY
   }
 
-export const headLines_KEY = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+export const headLines_baseUrl = `https://newsapi.org/v2/top-headlines?country=`;

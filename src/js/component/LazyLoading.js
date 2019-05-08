@@ -1,9 +1,9 @@
-import { headLines_KEY} from '../constant/constant';
-import {proxiedApi} from './Proxy';
+import {proxiedHeadLinesApi} from './Proxy';
 import{errorInstance} from './Errors'
-const headlinesNewsData = () => {
+
+const headlinesNewsData = (country="us") => {
     try {
-        return proxiedApi.get(headLines_KEY);
+        return proxiedHeadLinesApi.get(country);
     } catch (e) {
         errorInstance.errorHandler(e.name,e.message )
     } 

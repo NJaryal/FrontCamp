@@ -1,5 +1,7 @@
 export class Api {
-    constructor() {
+    constructor(baseUrl, apiKey) {
+      this.baseUrl = baseUrl
+      this.apiKey = apiKey
     }
 
   async request(url, method, body) {
@@ -8,7 +10,7 @@ export class Api {
         body: JSON.stringify(body)
     }
     try {
-      return await fetch(url, param).then(res => res.json())
+      return await fetch(`${this.baseUrl}${url}&apiKey=${this.apiKey}`, param).then(res => res.json())
     } catch (e) {
       const myModule = import(/* webpackPreload: true */ "./Errors.js")
       return await myModule.errorHandler(e.name,e.message)
