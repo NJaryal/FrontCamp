@@ -1,6 +1,7 @@
-# FrontCamp - Mongo
+# FrontCamp 
 
-MongoDB. Home Task 1 Note: if you already have MongoDB installed, please, check that you are running the latest version – 3.6, because it’s necessary to complete some of the tasks 
+##MongoDB Home Task1
+
 1. Install MongoDB Follow installation guidelines for your OS at https://docs.mongodb.com/manual/installation/#mongodb-communityedition 
 
 2. Saved restaurants.json on your PC from downloaded grow portal.
@@ -24,25 +25,25 @@ switched to db frontcamp
 1.  Verify that the number of the documents in the restaurants collection is 25359.
     ```shell
     > db.restaurants.count()
-    25359
+      25359
     ```
 
 2. Query: db.restaurants.find({ borough: "Brooklyn" }).count()
     ```shell
     > db.restaurants.find({borough: "Brooklyn"}).count()
-    6086
+      6086
     ```
 3. Query: db.restaurants.find({ borough: "Brooklyn" }).count()
     ```shell
     > db.restaurants.find({borough: "Brooklyn"}).count()
-    6086
+      6086
     ```
 
 ### Answer the following questions and include both query and the result (if applicable) into your report: 
 1. How many “Chinese” (cuisine) restaurants are in “Queens” (borough)? 
     ```shell
     > db.restaurants.find({borough: "Queens"}).count()
-    5656
+      5656
     ```
     
 2. What is the _id of the restaurant which has the grade with the highest ever score? 
@@ -56,31 +57,52 @@ switched to db frontcamp
     > db.restaurants.find({borough: "Manhattan"}).count()
     10259
     > db.restaurants.updateMany({borough: "Manhattan"},{$push: {grades: {grade: "A", score: 7, date: ISODate()}}})
-    { "acknowledged" : true, "matchedCount" : 10259, "modifiedCount" : 10259 }
+      { "acknowledged" : true, "matchedCount" : 10259, "modifiedCount" : 10259 }
     ```
     
 4. What are the names of the restaurants which have a grade at index 8 with score less then 7? Use projection to include only names without _id. 
     ```shell
    > db.restaurants.find({"grades.7.score": {$lt: 7}},{name: 1, _id: 0})
-    { "name" : "El Castillo De Madison" }
-    { "name" : "Vee'S Restaurant" }
-    { "name" : "Don Alex Restaurant" }
-    { "name" : "Gahm Mi Oak Restaurant" }
-    { "name" : "Au Za'Atar" }
-    { "name" : "Sunshine 27 Seafood Restaurant" }
-    { "name" : "New Chung Mee Restaurant" }
-    { "name" : "Lucky 11 Bakery" }
-    { "name" : "La Cueva Deli & Grocery" }
-    { "name" : "Kennedy Fried Chicken" }
-    { "name" : "New China Star" }
-    { "name" : "Hoy Wong Restaurant" }
-    { "name" : "Elena'S Restuarant" }
+       { "name" : "El Castillo De Madison" }
+       { "name" : "Vee'S Restaurant" }
+       { "name" : "Don Alex Restaurant" }
+       { "name" : "Gahm Mi Oak Restaurant" }
+       { "name" : "Au Za'Atar" }
+       { "name" : "Sunshine 27 Seafood Restaurant" }
+       { "name" : "New Chung Mee Restaurant" }
+       { "name" : "Lucky 11 Bakery" }
+       { "name" : "La Cueva Deli & Grocery" }
+       { "name" : "Kennedy Fried Chicken" }
+       { "name" : "New China Star" }
+       { "name" : "Hoy Wong Restaurant" }
+       { "name" : "Elena'S Restuarant" }
     ```
     
     
 5. What are _id and borough of “Seafood” (cuisine) restaurants  which received at least one “B” grade in period from 2014-02-01 to 2014-03-01? Use projection to include only _id and borough. 
     ```shell
-    db.restaurants.find({cuisine: "Seafood"},{"grades.grade.B":{$elemMatch: {$gte: ISODate("2014-02-01"), $lt: ISODate("2014-03-01")}}})
+    > db.restaurants.find({ $and: [{ "cuisine": "Seafood" }, { "grades.grade": "B"}, { "grades.date": { $gt: ISODate("2014-02-01"), $lt:     ISODate("2014-03-01") } }] },{_id: 1, borough: 1})
+    
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872290"), "borough" : "Queens" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872295"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd18722c7"), "borough" : "Bronx" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872346"), "borough" : "Bronx" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd18723c0"), "borough" : "Brooklyn" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd18726ac"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872a3d"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872b5e"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872cec"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872deb"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872e40"), "borough" : "Brooklyn" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1872e6c"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1873127"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1873178"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd18731ac"), "borough" : "Queens" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1873217"), "borough" : "Brooklyn" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd1873284"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e0fa1ec5d5dd18735de"), "borough" : "Manhattan" }
+      { "_id" : ObjectId("5cca8e10a1ec5d5dd1873a19"), "borough" : "Queens" }
+      { "_id" : ObjectId("5cca8e10a1ec5d5dd1873b19"), "borough" : "Queens" }
     ```
     
     
