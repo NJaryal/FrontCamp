@@ -180,7 +180,7 @@ switched to db frontcamp
   
    3. Create an index to make this query covered and provide proof (from explain() or Compass UI) that it is indeed covered: 
    ```shell   
-   > db.restaurants.createIndex({"restaurant_id": 41098650})
+   > db.restaurants.createIndex({"restaurant_id": 1})
    {
            "createdCollectionAutomatically" : false,
            "numIndexesBefore" : 1,
