@@ -1,12 +1,13 @@
-import {sources,settings} from "../../src/js/constant/constant";
+import {sources,settings} from "../js/constant/constant";
 import "../js/component/BootstrapMenu";
-class Views {
+class View {
   constructor(sources, settings) {
     this.sources = sources;
     this.settings = settings;
-    this.errorsModal = document.querySelector(settings.errorsModal)
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
+    this.ul = document.querySelector(settings.ulSelector)
+    this.channelUILists = document.querySelector(settings.channelUIListsSelector)
     this.errorsModal = document.querySelector(settings.errorsModal)
     this.spinner = document.querySelector(settings.spinnerSelector)
     this.spinner.style.display = 'none';
@@ -43,6 +44,35 @@ class Views {
   disableSpinner() {
     this.spinner.style.display = 'none';
   }
+
+  append(parent, el) {
+    return parent.appendChild(el)
+  }
+
+  createNode(element) {
+    return document.createElement(element)
+  }  
+
+  renderItem(news) {
+    let li = this.createNode('li'), 
+        img = this.createNode('img'),
+        div = this.createNode('div'),
+        p = this.createNode('p'),
+        h4 = this.createNode('h4'),
+        strong = this.createNode('strong'); 
+
+      img.src = news.urlToImage;
+      h4.innerHTML = `AUTHOR: ${news.author}`;
+      strong.innerHTML = `Title: ${news.title} `;
+      p.innerHTML = `Description: ${news.description}`;
+          
+      this.append(li, img);
+      this.append(li, div);
+      this.append(div, h4);
+      this.append(div, strong);
+      this.append(div, p);        
+      this.append(this.ul , li);       
+    } 
   
   headLinesHTML(item) {
     return `<a href="#" class="list-group-item"><strong>${
@@ -71,5 +101,5 @@ class Views {
             </div>`;
   }
 }
-export const view = new Views(sources, settings);
-view.initialContent();
+export const myView = new View(sources, settings);
+

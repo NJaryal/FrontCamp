@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FirstWebpackPlugin = require("./plugins/FirstWebpackPlugin");
 
 module.exports = {
-    entry: './src/js/component/App.js',
+    entry: './src/js/component/Controller.js',
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')         
