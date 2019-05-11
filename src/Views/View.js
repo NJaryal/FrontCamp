@@ -4,7 +4,6 @@ class View {
   constructor(sources, settings) {
     this.sources = sources;
     this.settings = settings;
-    this.errorsModal = document.querySelector(settings.errorsModal)
     this.main = document.querySelector(settings.gridSection)
     this.nav = document.querySelector(settings.navSection)
     this.ul = document.querySelector(settings.ulSelector)

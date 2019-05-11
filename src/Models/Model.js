@@ -7,10 +7,8 @@ export class Model{
         this.articles = []
     }
 
-
     setArticles(articles) {
         this.articles = articles  
-        myView.disableSpinner()
         return this.articles
     }
 

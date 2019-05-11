@@ -26,6 +26,7 @@ class Controller {
     this.view.enableSpinner()   
     return proxiedNewsApi.get(source)
     .then(({ articles }) => {
+      this.view.disableSpinner()
       this.model.setArticles(articles)
       this.render()
     })
