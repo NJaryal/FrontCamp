@@ -1,15 +1,24 @@
-import {NewsChannel} from '../js/component/NewsChannel';
+import {myView} from '../Views/View'
 export class Model{
     constructor(sources) {
         this.sources = sources
+        //this.source = source
         this.channels = {}
+        this.articles = []
     }
-    getChannels() {        
+
+
+    setArticles(articles) {
+        this.articles = articles  
+        myView.disableSpinner()
+        return this.articles
+    }
+
+    setChannels() {      
         this.channels = this.sources.reduce((acc, { source, inst }) => {
-            acc[inst] = new NewsChannel(source);
+            acc[inst] = source
             return acc
-          }, {})
+        }, {})
     }
 
 }
-

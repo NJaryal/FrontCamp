@@ -72,7 +72,7 @@ class View {
       this.append(div, h4);
       this.append(div, strong);
       this.append(div, p);        
-      this.append(this.view.ul , li);       
+      this.append(this.ul , li);       
     } 
   
   headLinesHTML(item) {
