@@ -680,6 +680,10 @@ switched to db frontcamp
         $limit: 3
     }
    ])
+   
+   { "city" : "Abu Dhabi, United Arab Emirates", "avgPassengers" : 8052.380952380952 }
+   { "city" : "Dubai, United Arab Emirates", "avgPassengers" : 7176.596638655462 }
+   { "city" : "Guangzhou, China", "avgPassengers" : 7103.333333333333 }
    ```
 
 3. Which carriers provide flights to Latvia (destCountry)? Show result as one document { "_id" : "Latvia", "carriers" : [ "carrier1", " carrier2", …] }          
@@ -697,11 +701,37 @@ switched to db frontcamp
          }
      }
    ])
+   
+   { "_id" : "Latvia", "carriers" : [ "Uzbekistan Airways", "Blue Jet SP Z o o", "JetClub AG" ] }
    ```
 4. What are the carriers which flue the most number of passengers from the United State to either Greece, Italy or Spain? Find top 10 carriers, but provide the last 7 carriers (do not include the first 3). Show result as { "_id" : "<carrier>", "total" : 999}    
 ```shell
-> use frontcamp
-switched to db frontcamp
+   db.airlines.aggregate([
+        {   
+        $match:{"$and":[       
+        {"$or":[         
+        {"destCountry":"Greece"},         
+        {"destCountry":"Italy"},         
+        {"destCountry":"Spain"}]},       
+        {"originCountry":"United States"}]}},
+        {
+         $group: {
+             _id: "$carrier",
+             totalPassengers : {$max : "$passengers"}
+         }         
+     },
+     {$sort: {totalPassengers: -1}},
+     {$limit: 10},
+     {$skip: 3}
+    ])
+   
+   { "_id" : "Emirates", "totalPassengers" : 12144 }
+   { "_id" : "Air Europa", "totalPassengers" : 8086 }
+   { "_id" : "American Airlines Inc.", "totalPassengers" : 8065 }
+   { "_id" : "United Air Lines Inc.", "totalPassengers" : 7313 }
+   { "_id" : "Meridiana S.p.A", "totalPassengers" : 6173 }
+   { "_id" : "Norwegian Air Shuttle ASA", "totalPassengers" : 2381 }
+   { "_id" : "Atlas Air Inc.", "totalPassengers" : 85 }
 ```
 
 5. Find the city (originCity) with the highest sum of passengers for each state (originState) of the United States (originCountry). Provide the city for the first 5 states ordered by state alphabetically (you should see the city for Alaska, Arizona and etc). Show result as { "totalPassengers" : 999, "location" : { "state" : "abc", "city" : "xyz" } }    
