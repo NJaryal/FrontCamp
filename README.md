@@ -48,7 +48,7 @@ switched to db frontcamp
     
 2. What is the _id of the restaurant which has the grade with the highest ever score? 
     ```shell
-    > db.restaurants.find().sort({"grades.score": -1}).limit(1).next()._id
+    > db.restaurants.find({},{_id: 1}).sort({"grades.score": -1}).limit(1)
     ObjectId("5cca8e0fa1ec5d5dd1872324")
     ```
     
