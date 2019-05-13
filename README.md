@@ -1,6 +1,6 @@
 # FrontCamp 
 
-##MongoDB Home Task1
+## MongoDB Home Task1
 
 1. Install MongoDB Follow installation guidelines for your OS at https://docs.mongodb.com/manual/installation/#mongodb-communityedition 
 
@@ -633,3 +633,67 @@ switched to db frontcamp
      "ok" : 1
  }
  ```
+
+## MongoDB Home Task2
+
+1. How many records does each airline class have? Use $project to show result as { class: "Z", total: 999 } 
+   ```shell
+   db.airlines.aggregate([
+    {
+        $group: {
+            _id : "$class",
+           count: { $sum: 1 }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            class: "$_id",
+            total: "$count"
+        }
+    }
+   ])
+   ```
+2. What are the top 3 destination cities outside of the United States (destCountry field, not included) with the highest average passengers count? Show result as { "avgPassengers" : 2312.380, "city" : "Minsk, Belarus" }.
+   ```shell
+   db.airlines.aggregate([
+    {
+        $match: {
+            destCountry : {$ne: "United States"},
+        }
+    },
+    {
+     $group: {    
+       _id: "$destCity",       
+       Passengers: { $avg: "$passengers" }
+     }
+   },
+   {
+       $project: {
+            _id: 0,
+            city: "$_id",
+            avgPassengers: "$Passengers"
+        }
+   },
+    { $sort : { avgPassengers : -1}     },
+    {
+        $limit: 3
+    }
+   ])
+   ```
+
+3. Which carriers provide flights to Latvia (destCountry)? Show result as one document { "_id" : "Latvia", "carriers" : [ "carrier1", " carrier2", …] }          
+   ```shell
+
+   ```
+4. What are the carriers which flue the most number of passengers from the United State to either Greece, Italy or Spain? Find top 10 carriers, but provide the last 7 carriers (do not include the first 3). Show result as { "_id" : "<carrier>", "total" : 999}    
+```shell
+> use frontcamp
+switched to db frontcamp
+```
+
+5. Find the city (originCity) with the highest sum of passengers for each state (originState) of the United States (originCountry). Provide the city for the first 5 states ordered by state alphabetically (you should see the city for Alaska, Arizona and etc). Show result as { "totalPassengers" : 999, "location" : { "state" : "abc", "city" : "xyz" } }    
+```shell
+> use frontcamp
+switched to db frontcamp
+```
