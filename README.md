@@ -33,17 +33,12 @@ switched to db frontcamp
     > db.restaurants.find({borough: "Brooklyn"}).count()
       6086
     ```
-3. Query: db.restaurants.find({ borough: "Brooklyn" }).count()
-    ```shell
-    > db.restaurants.find({borough: "Brooklyn"}).count()
-      6086
-    ```
 
 ### Answer the following questions and include both query and the result (if applicable) into your report: 
 1. How many “Chinese” (cuisine) restaurants are in “Queens” (borough)? 
     ```shell
-    > db.restaurants.find({borough: "Queens"}).count()
-      5656
+    > db.restaurants.find({cuisine: "Chinese", borough: "Queens"}).count()
+      728
     ```
     
 2. What is the _id of the restaurant which has the grade with the highest ever score? 
