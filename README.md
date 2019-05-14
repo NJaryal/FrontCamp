@@ -736,6 +736,42 @@ switched to db frontcamp
 
 5. Find the city (originCity) with the highest sum of passengers for each state (originState) of the United States (originCountry). Provide the city for the first 5 states ordered by state alphabetically (you should see the city for Alaska, Arizona and etc). Show result as { "totalPassengers" : 999, "location" : { "state" : "abc", "city" : "xyz" } }    
 ```shell
-> use frontcamp
-switched to db frontcamp
+ db.airlines.aggregate([
+    {   
+        $match:{
+            originCountry: {$eq: "United States"}
+        }
+    },
+    {
+        $group: {
+            _id: {city: "$originCity", state: "$originState"},
+            passengersSum : {$sum : "$passengers"}
+        }         
+    },     
+    {
+        $group: {
+            _id: {state: "$_id.state"},
+            totalPassengers : {$sum: "$passengersSum"}
+        }         
+    },
+    {
+        $sort: { _id: 1} 
+    },
+    {
+        $project: {
+            "location":"$_id",
+            totalPassengers: "$totalPassengers",
+            _id: 0
+        }
+    }, 
+    {
+        $limit: 5
+    } 
+ ])
+ 
+{ "location" : { "state" : "Alabama" }, "totalPassengers" : 1349135 }
+{ "location" : { "state" : "Alaska" }, "totalPassengers" : 2814073 }
+{ "location" : { "state" : "Arizona" }, "totalPassengers" : 14393383 }
+{ "location" : { "state" : "Arkansas" }, "totalPassengers" : 1049440 }
+{ "location" : { "state" : "California" }, "totalPassengers" : 63477673 }
 ```
