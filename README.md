@@ -653,6 +653,11 @@ switched to db frontcamp
         }
     }
    ])
+   
+   { "class" : "F", "total" : 140343 }
+   { "class" : "L", "total" : 23123 }
+   { "class" : "P", "total" : 5683 }
+   { "class" : "G", "total" : 17499 }
    ```
 2. What are the top 3 destination cities outside of the United States (destCountry field, not included) with the highest average passengers count? Show result as { "avgPassengers" : 2312.380, "city" : "Minsk, Belarus" }.
    ```shell
