@@ -736,42 +736,75 @@ switched to db frontcamp
 
 5. Find the city (originCity) with the highest sum of passengers for each state (originState) of the United States (originCountry). Provide the city for the first 5 states ordered by state alphabetically (you should see the city for Alaska, Arizona and etc). Show result as { "totalPassengers" : 999, "location" : { "state" : "abc", "city" : "xyz" } }    
 ```shell
- db.airlines.aggregate([
-    {   
-        $match:{
-            originCountry: {$eq: "United States"}
+db.airlines.aggregate(
+    [{
+            $match: {
+                originCountry: "United States",
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    originState: "$originState",
+                    originCity: "$originCity"
+                },
+                total: {
+                    $sum: "$passengers"
+                }
+            },
+        },
+        {
+            $group: {
+                _id: {
+                    originState: "$_id.originState"
+                },
+                city: {
+                    $push: "$_id.originCity"
+                },
+                total: {
+                    $push: "$total"
+                }
+            },
+        },
+        {
+            $sort: {
+                _id: 1
+            }
+        },
+        {
+            $project: {
+                indexMaxTotal: {
+                    $indexOfArray: ["$total", {
+                        $max: "$total"
+                    }]
+                },
+                total: "$total",
+                city: "$city"
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                totalPassengers: {
+                    $max: "$total"
+                },
+                location: {
+                    state: "$_id.originState",
+                    city: {
+                        $arrayElemAt: ["$city", "$indexMaxTotal"]
+                    }
+                }
+            }
+        },
+        {
+            $limit: 5
         }
-    },
-    {
-        $group: {
-            _id: {city: "$originCity", state: "$originState"},
-            passengersSum : {$sum : "$passengers"}
-        }         
-    },     
-    {
-        $group: {
-            _id: {state: "$_id.state"},
-            totalPassengers : {$sum: "$passengersSum"}
-        }         
-    },
-    {
-        $sort: { _id: 1} 
-    },
-    {
-        $project: {
-            "location":"$_id",
-            totalPassengers: "$totalPassengers",
-            _id: 0
-        }
-    }, 
-    {
-        $limit: 5
-    } 
- ])
+    ]
+ )
  
-{ "location" : { "state" : "Alabama" }, "totalPassengers" : 1349135 }
-{ "location" : { "state" : "Alaska" }, "totalPassengers" : 2814073 }
-{ "location" : { "state" : "Arizona" }, "totalPassengers" : 14393383 }
-{ "location" : { "state" : "Arkansas" }, "totalPassengers" : 1049440 }
-{ "location" : { "state" : "California" }, "totalPassengers" : 63477673 }
+{ "totalPassengers" : 760120, "location" : { "state" : "Alabama", "city" : "Birmingham, AL" } }
+{ "totalPassengers" : 1472404, "location" : { "state" : "Alaska", "city" : "Anchorage, AK" } }
+{ "totalPassengers" : 13152753, "location" : { "state" : "Arizona", "city" : "Phoenix, AZ" } }
+{ "totalPassengers" : 571452, "location" : { "state" : "Arkansas", "city" : "Little Rock, AR" } }
+{ "totalPassengers" : 23701556, "location" : { "state" : "California", "city" : "Los Angeles, CA" } }
 ```
