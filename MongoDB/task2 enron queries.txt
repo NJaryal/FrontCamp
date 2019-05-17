@@ -1,10 +1,5 @@
 ## MongoDB Home Task2
 
-1. Install MongoDB Follow installation guidelines for your OS at https://docs.mongodb.com/manual/installation/#mongodb-communityedition 
-
-2. Saved restaurants.json on your PC from downloaded grow portal.
-   > Installed on desktop
-
 1. In this dataset, each document is an email message. Like all Email messages, there is one sender but there can be multiple recipients. 
 2. For this task you will use the aggregation framework to figure out pairs of people that tend to communicate a lot. To do this, you will need to unwind the To list for each message. 
 3. This problem is a little tricky because a recipient may appear more than once in the To list for a message. 
